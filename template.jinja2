@@ -1,0 +1,10 @@
+hostname {{ HOST }}
+
+int loopback1
+ip address {{ LO_1 }}/32
+
+{%- set list1 = PFL.split(',') %}
+{% for line in list1 %}
+ {%- set seq = loop.index * 5 %}
+ ip prefix-list pl seq {{ seq }} permit {{ line -}}
+{% endfor %}
