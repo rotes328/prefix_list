@@ -1,10 +1,9 @@
 from csv import DictReader
-from sys import argv
 from jinja2 import Template
 
 def render_config():
 
-    csv_file = argv[1]
+    csv_file = "vars.csv"
     j2_template = "template.jinja2"
 
     try:
@@ -16,14 +15,10 @@ def render_config():
                 config = Template(config_data)
                 print("------------")
                 print(config.render(var_data))
-        print("------------")
+            print("------------")
     except FileNotFoundError:
-        print("No file found")
+        raise Exception("File not found")
 
-def main():
-    if len(argv) < 2:
-        raise Exception("Argument Required: Feed variables (csv)")
-    render_config()
 
 if __name__ == '__main__':
-    main()
+    render_config()
